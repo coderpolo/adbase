@@ -17,10 +17,11 @@ std::string generate_str(int str_len)
 TEST(ReadSmallFileTest, ReadSmallFileConstructorTest)
 {
     //create a regular file.
-    char filename[255] = {0x00};
+    char filename[]= "template-XXXXXX";
     int fd = mkstemp(filename);
     adbase::ReadSmallFile read_file(filename);
     close(fd);
+    remove(filename);
 }
 // }}}
 
