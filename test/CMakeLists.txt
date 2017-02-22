@@ -17,6 +17,7 @@ SET(TEST_ALL
 	Queue.cpp
     Sequence.cpp
     String.cpp
+    FileSystem.cpp
 )
 ADD_EXECUTABLE(test_all ${TEST_ALL})
 TARGET_LINK_LIBRARIES(test_all adbase libgtest.a libgtest_main.a pthread)
