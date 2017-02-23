@@ -8,7 +8,21 @@ else()
 endif()
 SET(LINK_FLAGS "${LINK_FLAGS} -static-libstdc++")
 
+<<<<<<< HEAD
 file(GLOB APP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.cpp" )
 SET(TEST_ALL ${APP_SOURCES})
+=======
+SET(TEST_ALL
+	TestAll.cpp
+	LogStreamTest.cpp
+	Buffer.cpp
+	Date.cpp
+	Enbian.cpp
+	Queue.cpp
+    Sequence.cpp
+    String.cpp
+    FileSystem.cpp
+)
+>>>>>>> 162954c4bf3b0662c294d769c0345ce1256c6f77
 ADD_EXECUTABLE(test_all ${TEST_ALL})
 TARGET_LINK_LIBRARIES(test_all adbase libgtest.a libgtest_main.a pthread)
