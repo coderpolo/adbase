@@ -88,7 +88,7 @@ TEST(AppendFileTest, appendTest)
     int max_read = 65535*2;
     std::string result;
     adbase::readFile(filename,max_read, &result,&file_size,&modify_time,&create_time);
-
     EXPECT_EQ(result,str_to_write + str_to_write);
+    remove(filename);
 }
 // }}}
