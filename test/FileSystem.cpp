@@ -25,7 +25,7 @@ TEST(ReadSmallFileTest, ReadSmallFileConstructorTest)
 }
 // }}}
 
-// {{{ construct
+// {{{ read
 TEST(ReadSmallFileTest, ReadFileTest)
 {
     char filename[]= "template-XXXXXX";
@@ -58,5 +58,37 @@ TEST(ReadSmallFileTest, ReadFileTest)
 
     //remove file
     remove(filename);
+}
+// }}}
+
+// {{{ append
+TEST(AppendFileTest, appendTest)
+{
+    char filename[]= "template-XXXXXX";
+    int str_len = 65535;
+    std::string str_to_write = generate_str(str_len);
+
+    //create a regular file.
+    int fd = mkstemp(filename);
+
+    //write to file
+    ssize_t write_count = write (fd, str_to_write.c_str(), (str_to_write.size()));
+    close(fd);
+    EXPECT_EQ(write_count,str_to_write.size());
+
+    //append to file
+    adbase::AppendFile append_file(filename);
+    append_file.append(str_to_write.c_str(),str_to_write.size());
+    append_file.flush();
+
+    //read and compare
+    int64_t file_size = 0;
+    int64_t modify_time = 0;
+    int64_t create_time = 0;
+    int max_read = 65535*2;
+    std::string result;
+    adbase::readFile(filename,max_read, &result,&file_size,&modify_time,&create_time);
+
+    EXPECT_EQ(result,str_to_write + str_to_write);
 }
 // }}}
